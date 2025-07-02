@@ -55,18 +55,33 @@
           <div class="input-group flex-nowrap" style="margin-top: 30px">
             <input
               type="text"
+              id="inputName"
               class="form-control input-custom"
               style="width: 100%"
+              maxlength="30"
               placeholder="🙍🏻‍♂️ Nama Lengkap"
             />
           </div>
           <div class="input-group flex-nowrap" style="margin-top: 10px">
             <input
-              type="text"
+              type="email"
+              id="inputEmail"
               class="form-control input-custom"
               style="width: 100%"
-              placeholder="＠ Email"
+              maxlength="30"
+              placeholder="＠ Email (wajib @gmail.com)"
             />
+            <p
+              style="
+                line-height: 15px;
+                font-size: 12px;
+                margin-bottom: 0;
+                margin-top: 9px;
+              "
+            >
+              *Pastikan email aktif karena akses ke ebook memerlukan email
+              tersebut.
+            </p>
           </div>
           <div class="input-group flex-nowrap" style="margin-top: 20px">
             <small>Punya kode referral?</small><br />
@@ -74,8 +89,13 @@
               type="text"
               class="form-control input-custom"
               placeholder="🎫 Kode Referral"
-              style="margin-top: 10px; margin-bottom: 10px"
-              id="referralCode"
+              maxlength="30"
+              style="
+                margin-top: 10px;
+                margin-bottom: 10px;
+                text-transform: uppercase;
+              "
+              id="referralCodeInput"
             />
             <button
               class="button buy-button w-button"
@@ -85,21 +105,33 @@
               Gunakan
             </button>
           </div>
+          <small style="color: red" id="messageCheckReferral"></small>
           <div class="detail-pricing">
             <div class="item-pricing">
               <small>Harga Ebook</small>
-              <small>Rp149.000</small>
+              <small id="price-item-ebook"
+                ><i class="fa fa-spinner fa-spin"></i
+              ></small>
             </div>
             <div class="item-pricing">
               <small>Biaya Layanan</small>
               <small>Rp2.000</small>
+            </div>
+            <div class="item-pricing" style="margin-top: 10px">
+              <small>Total Biaya</small>
+              <small id="total-price-item"
+                ><i class="fa fa-spinner fa-spin"></i
+              ></small>
+            </div>
+            <div class="item-pricing" style="margin-top: 20px">
+              <small id="errorValidation"></small>
             </div>
           </div>
           <div class="input-group flex-nowrap" style="margin-top: 30px">
             <button
               class="button buy-button pay-now w-button"
               type="button"
-              id="button-addon2"
+              id="submitFormBuy"
               style="width: 100%"
             >
               BAYAR SEKARANG
@@ -123,23 +155,6 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
-    <script>
-      $(document).ready(function () {
-        $(document).on("click", "#useReferralCode", function () {
-          let referralCode = $("#referralCode").val();
-          $(this).html(`
-            <i class="fa fa-spinner fa-spin"></i>
-          `);
-          $.getJSON("https://pay.bookhunter.id/api/referral?code=RONA2025")
-            .done(function (data) {
-              $(this).text(`
-                Gunakan
-              `);
-              console.log(data);
-            })
-            .fail(function (jqxhr, textStatus, error) {});
-        });
-      });
-    </script>
+    <script src="/assets/script.js"></script>
   </body>
 </html>
