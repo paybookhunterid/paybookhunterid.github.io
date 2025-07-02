@@ -415,6 +415,7 @@ blockquote p {
 }
 
 .input-custom {
+  border-radius: 0px !important;
   border: solid 3px black;
   padding: 8px;
   padding-left: 20px;
