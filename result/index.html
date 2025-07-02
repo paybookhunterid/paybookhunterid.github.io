@@ -62,9 +62,9 @@
           const urlParams = new URLSearchParams(window.location.search);
           return urlParams.get(param);
         }
-        const status = getQueryParam("status");
+        const transaction_status = getQueryParam("transaction_status");
 
-        if (status == "success") {
+        if (transaction_status == "settlement") {
           $("#area-result").html(`
             <dotlottie-player
               src="https://lottie.host/c01cc7d9-913e-4300-9a55-dddaf2bc0909/dZuDauPAUB.lottie"
@@ -83,7 +83,90 @@
             >
               Yeay! Pembayaran berhasil.<br />
               <small
-                >Cek email untuk akses premium ebook-nya.</small
+                >Silahkan cek email untuk akses premium ebook-nya.</small
+              >
+            </div>
+          `);
+        } else if (transaction_status == "pending") {
+          $("#area-result").html(`
+            <dotlottie-player
+              src="https://lottie.host/a3b21961-ad53-409e-a410-3fb25a526dba/MGt0E1RF87.lottie"
+              background="transparent"
+              speed="1"
+              style="width: 100%; height: 300px"
+              direction="1"
+              playMode="forward"
+              loop
+              autoplay
+            ></dotlottie-player>
+            <div
+              class="subhead space-bottom-36"
+              id="message-payment"
+              style="font-size: 1.6rem; text-align: center"
+            >
+              Hmmm, kami sedang menunggu pembayaran kamu.<br />
+            </div>
+          `);
+        } else if (transaction_status == "deny") {
+          $("#area-result").html(`
+            <dotlottie-player
+              src="https://lottie.host/a3b21961-ad53-409e-a410-3fb25a526dba/MGt0E1RF87.lottie"
+              background="transparent"
+              speed="1"
+              style="width: 100%; height: 300px"
+              direction="1"
+              playMode="forward"
+              loop
+              autoplay
+            ></dotlottie-player>
+            <div
+              class="subhead space-bottom-36"
+              id="message-payment"
+              style="font-size: 1.6rem; text-align: center"
+            >
+              Upps, Pembayaran kamu ditolak.
+            </div>
+          `);
+        } else if (transaction_status == "cancel") {
+          $("#area-result").html(`
+            <dotlottie-player
+              src="https://lottie.host/a3b21961-ad53-409e-a410-3fb25a526dba/MGt0E1RF87.lottie"
+              background="transparent"
+              speed="1"
+              style="width: 100%; height: 300px"
+              direction="1"
+              playMode="forward"
+              loop
+              autoplay
+            ></dotlottie-player>
+            <div
+              class="subhead space-bottom-36"
+              id="message-payment"
+              style="font-size: 1.6rem; text-align: center"
+            >
+              Huhu, Kamu membatalkan proses pembayaran.
+            </div>
+          `);
+        } else if (transaction_status == "expire") {
+          $("#area-result").html(`
+            <dotlottie-player
+              src="https://lottie.host/a3b21961-ad53-409e-a410-3fb25a526dba/MGt0E1RF87.lottie"
+              background="transparent"
+              speed="1"
+              style="width: 100%; height: 300px"
+              direction="1"
+              playMode="forward"
+              loop
+              autoplay
+            ></dotlottie-player>
+            <div
+              class="subhead space-bottom-36"
+              id="message-payment"
+              style="font-size: 1.6rem; text-align: center"
+            >
+              opps, Waktu Pembayaran Habis. <br>
+              <small
+                >Jangan khawatir, kamu bisa coba lagi</small
               >
             </div>
           `);
@@ -104,11 +187,7 @@
               id="message-payment"
               style="font-size: 1.6rem; text-align: center"
             >
-              Uppss, Sepertinya pembayaran kamu gagal.<br />
-              <small
-                >Jangan khawatir, kamu bisa coba lagi atau hubungi kami jika
-                butuh bantuan</small
-              >
+              opps, Terjadi kesalahan.
             </div>
           `);
         }
