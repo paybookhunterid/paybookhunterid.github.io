@@ -117,8 +117,8 @@ ul > li {
 }
 
 .logo {
-  filter: grayscale(1);
-  margin: 15px;
+  /* filter: grayscale(1);
+  margin: 15px; */
 }
 
 @media (max-width: 1024px) {
@@ -134,7 +134,7 @@ ul > li {
   .button {
     padding: 12px 18px;
     font-size: 16px;
-    line-height: 10px;
+    line-height: 20px;
   }
 
   .title-section {
@@ -436,6 +436,7 @@ blockquote p {
 
 .item-pricing {
   display: flex;
+  align-items: center;
   justify-content: space-between;
 }
 
@@ -444,9 +445,9 @@ blockquote p {
 }
 
 .logo {
-  width: 180px;
+  width: 190px;
   height: auto;
-  margin: 15px 0;
+  margin: 18px 0;
 }
 
 .logo-wrapper.w--current {
@@ -454,10 +455,11 @@ blockquote p {
 }
 
 .category-brand {
+  margin-left: 5px;
   background-color: #111;
   color: #fff;
   padding: 0px 16px;
-  transform: rotate(-30deg);
+  /* transform: rotate(-30deg); */
   font-size: 11px;
 }
 
@@ -472,4 +474,8 @@ blockquote p {
   line-height: 18px;
   font-size: 12px;
   color: red;
+}
+
+#price-item-ebook {
+  text-align: end !important;
 }

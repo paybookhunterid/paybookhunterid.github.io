@@ -35,7 +35,7 @@ $(document).ready(function () {
             $("#price-item-ebook").html(
               `<strike>${formatRupiah(
                 parseInt(data.basePrice)
-              )}</strike> ${formatRupiah(parseInt(data.finalAmount))}`
+              )}</strike> <br> ${formatRupiah(parseInt(data.finalAmount))}`
             );
             $("#total-price-item").html(
               `${formatRupiah(parseInt(data.finalAmount) + 2000)}`
