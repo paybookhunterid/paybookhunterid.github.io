@@ -12,6 +12,7 @@ $(document).ready(function () {
   $.getJSON(`${API.referral}?type=getBasePrice`)
     .done(function (data) {
       $("#price-item-ebook").text(formatRupiah(parseInt(data.basePrice)));
+      $("#price-services").text(formatRupiah(parseInt(2000)));
       $("#total-price-item").text(
         formatRupiah(parseInt(data.basePrice) + 2000)
       );
