@@ -9,13 +9,23 @@ $(document).ready(function () {
     return "Rp" + value.toLocaleString("id-ID");
   }
 
-  $.getJSON(`${API.referral}?type=getBasePrice`)
+  function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+  }
+  const dev = getQueryParam("dev");
+
+  $.getJSON(`${API.referral}?type=getBasePrice&dev=${dev}`)
     .done(function (data) {
-      $("#price-item-ebook").text(formatRupiah(parseInt(data.basePrice)));
-      $("#price-services").text(formatRupiah(parseInt(2000)));
-      $("#total-price-item").text(
-        formatRupiah(parseInt(data.basePrice) + 2000)
-      );
+      if (data.status == "error") {
+        $(".form-buy-area").text(data.message);
+      } else {
+        $("#price-item-ebook").text(formatRupiah(parseInt(data.basePrice)));
+        $("#price-services").text(formatRupiah(parseInt(2000)));
+        $("#total-price-item").text(
+          formatRupiah(parseInt(data.basePrice) + 2000)
+        );
+      }
     })
     .fail(function (jqxhr, textStatus, error) {
       $("#messageCheckReferral").text("Terjadi kesalahan");
@@ -67,7 +77,9 @@ $(document).ready(function () {
     const code = $("#referralCodeInput").val().trim();
     const query = `?type=pay&name=${encodeURIComponent(
       name
-    )}&email=${encodeURIComponent(email)}&code=${encodeURIComponent(code)}`;
+    )}&email=${encodeURIComponent(email)}&code=${encodeURIComponent(
+      code
+    )}&dev=${dev}`;
     if (name != "" && email != "") {
       $(this).html(`
         <i class="fa fa-spinner fa-spin"></i>
