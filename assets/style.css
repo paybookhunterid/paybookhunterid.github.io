@@ -116,11 +116,6 @@ ul > li {
   margin-bottom: 20px;
 }
 
-.logo {
-  /* filter: grayscale(1);
-  margin: 15px; */
-}
-
 @media (max-width: 1024px) {
   .heading-jumbo {
     font-size: 5rem;
@@ -478,4 +473,9 @@ blockquote p {
 
 #price-item-ebook {
   text-align: end !important;
+}
+
+.email-official-area {
+  background-color: #150061;
+  color: #fff;
 }
