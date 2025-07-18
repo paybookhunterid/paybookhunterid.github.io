@@ -104,7 +104,7 @@ $(document).ready(function () {
       id="referralCodeInput"
     />
     <button
-      class="button buy-button w-button"
+      class="button buy-button w-button useReferralCode"
       type="button"
       id="useReferralCode"
     >
@@ -137,7 +137,7 @@ $(document).ready(function () {
   </div>
   <div class="input-group flex-nowrap" style="margin-top: 30px">
     <button
-      class="button buy-button pay-now w-button"
+      class="button buy-button pay-now w-button submitFormBuy"
       type="button"
       id="submitFormBuy"
       style="width: 100%"
@@ -194,6 +194,7 @@ $(document).ready(function () {
   });
 
   function checkCodeReferral(captchaToken) {
+    $(".useReferralCode").removeAttr("id");
     let referralCode = $("#referralCodeInput").val();
     $.getJSON(
       `${API.referral}?type=check&code=${encodeURIComponent(
@@ -201,6 +202,7 @@ $(document).ready(function () {
       )}&captcha=${captchaToken}`
     )
       .done(function (data) {
+        $(".useReferralCode").attr("id", "useReferralCode");
         $("#useReferralCode").text(`
           Gunakan
           `);
@@ -224,6 +226,7 @@ $(document).ready(function () {
         }
       })
       .fail(function (jqxhr, textStatus, error) {
+        $(".useReferralCode").attr("id", "useReferralCode");
         $("#messageCheckReferral").text("Terjadi kesalahan");
         $("#useReferralCode").text(`
           Gunakan
@@ -276,12 +279,13 @@ $(document).ready(function () {
       $("#submitFormBuy").html(`
           <i class="fa fa-spinner fa-spin"></i>
       `);
+      $(".submitFormBuy").removeAttr("id");
       $("#errorValidation").html("");
       $.getJSON(API.referral + query)
         .done(function (data) {
           if (data.status === "ok") {
             $("#errorValidation").text("");
-            $("#submitFormBuy").html(`
+            $(".submitFormBuy").html(`
               TUNGGU DALAM <span id="countdown">3</span> DETIK..
           `);
             let count = 3;
@@ -297,12 +301,14 @@ $(document).ready(function () {
             }, 1000);
           } else {
             $("#errorValidation").html(data.errors.join("<br>"));
+            $(".submitFormBuy").attr("id", "submitFormBuy");
             $("#submitFormBuy").text(`
               BAYAR SEKARANG
           `);
           }
         })
         .fail(function () {
+          $(".submitFormBuy").attr("id", "submitFormBuy");
           alert("Terjadi kesalahan.");
           $("#submitFormBuy").text(`
               BAYAR SEKARANG
