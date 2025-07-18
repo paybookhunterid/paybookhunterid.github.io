@@ -40,10 +40,10 @@ $(document).ready(function () {
     devMode = `&dev=${encodeURIComponent(dev)}`;
   }
 
-  triggerPayment("getBasePrice");
+  getBasePrice();
 
-  function getBasePrice(token) {
-    $.getJSON(`${API.referral}?type=getBasePrice&captcha=${token}${devMode}`)
+  function getBasePrice() {
+    $.getJSON(`${API.referral}?type=getBasePrice${devMode}`)
       .done(function (data) {
         if (data.status == "error") {
           $(".form-buy-area").attr("style", "text-align: center");
