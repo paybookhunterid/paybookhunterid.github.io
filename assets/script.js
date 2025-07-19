@@ -169,6 +169,11 @@ $(document).ready(function () {
     <b style="color: chartreuse">services3.bookhunter@gmail.com</b>
   </div>
             `);
+          const referralCode = getQueryParam("ref");
+          if (referralCode != null) {
+            $("#referralCodeInput").val(referralCode);
+            $("#useReferralCode").click();
+          }
           $("#price-item-ebook").text(formatRupiah(parseInt(data.basePrice)));
           $("#price-item-ebook").attr("price-value", parseInt(data.basePrice));
           $("#price-services").text(formatRupiah(parseInt(2000)));
@@ -208,9 +213,17 @@ $(document).ready(function () {
           `);
         if (data.status == "ok") {
           $("#price-item-ebook").html(
-            `<strike>${formatRupiah(
-              parseInt(data.basePrice)
-            )}</strike> <br> ${formatRupiah(parseInt(data.finalAmount))}`
+            `<strike>${formatRupiah(parseInt(data.basePrice))}</strike> <br> 
+            <span style="color:green;font-weight:bold;">${formatRupiah(
+              parseInt(data.finalAmount)
+            )}</span> <br>
+            <small style="color:green;font-weight:bold;font-size:13px;">
+            Yuhu! kamu hemat ${
+              ((parseInt(data.basePrice) - parseInt(data.finalAmount)) /
+                parseInt(data.basePrice)) *
+              100
+            }% ✅
+            </small>`
           );
           $("#total-price-item").html(
             `${formatRupiah(parseInt(data.finalAmount) + 2000)}`
