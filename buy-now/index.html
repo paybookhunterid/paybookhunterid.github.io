@@ -70,5 +70,19 @@
     ></script>
     <script src="https://www.google.com/recaptcha/api.js?render=6LdbZIYrAAAAABoezfmGM_GtrP5Rh-OFCeBXxPea"></script>
     <script src="/assets/script.js"></script>
+    <script>
+      // Initialize the agent on page load.
+      const fpPromise = import(
+        "https://fpjscdn.net/v3/N9U1KUVTJDZoI8gwheVY"
+      ).then((FingerprintJS) => FingerprintJS.load());
+
+      // Get the visitorId when you need it.
+      fpPromise
+        .then((fp) => fp.get())
+        .then((result) => {
+          const visitorId = result.visitorId;
+          console.log(visitorId);
+        });
+    </script>
   </body>
 </html>
