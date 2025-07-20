@@ -5,16 +5,6 @@ $(document).ready(function () {
       "https://script.google.com/macros/s/AKfycbynolM1a-p9gRnYd1nxNfRIuBWkt6uGJWIaRsj01p9iaYM7xCUkAlKqIemsT8OA2KLJ/exec",
   };
 
-  let IP_USER;
-
-  $.getJSON(`https://api.ipify.org?format=json`)
-    .done(function (data) {
-      IP_USER = data.ip;
-    })
-    .fail(function (jqxhr, textStatus, error) {
-      console.log(textStatus);
-    });
-
   function triggerPayment(type) {
     grecaptcha.ready(function () {
       grecaptcha
