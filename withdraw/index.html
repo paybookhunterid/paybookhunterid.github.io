@@ -72,32 +72,17 @@
       src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"
       type="text/javascript"
     ></script>
-    <script src="https://www.google.com/recaptcha/api.js?render=6LdbZIYrAAAAABoezfmGM_GtrP5Rh-OFCeBXxPea"></script>
     <script>
       $(document).ready(function () {
-        function triggerPayment() {
-          grecaptcha.ready(function () {
-            grecaptcha
-              .execute("6LdbZIYrAAAAABoezfmGM_GtrP5Rh-OFCeBXxPea", {
-                action: "submitWithdraw",
-              })
-              .then(function (token) {
-                checkTokenWithdraw(token);
-              });
-          });
-        }
-
         function getQueryParam(param) {
           const urlParams = new URLSearchParams(window.location.search);
           return urlParams.get(param);
         }
-
         const token = getQueryParam("token");
-        triggerPayment();
-
-        function checkTokenWithdraw(captchaToken) {
+        checkTokenWithdraw();
+        function checkTokenWithdraw() {
           $.getJSON(
-            `https://script.google.com/macros/s/AKfycbxIlJYbHwQQRvajfxR1vofOs_X0I4ivw2QLzTutq_jPvXuQwFtRHfp2Yj0aLKPpPSfplQ/exec?token=${token}&captcha=${captchaToken}`
+            `https://script.google.com/macros/s/AKfycbxIlJYbHwQQRvajfxR1vofOs_X0I4ivw2QLzTutq_jPvXuQwFtRHfp2Yj0aLKPpPSfplQ/exec?token=${token}`
           )
             .done(function (data) {
               if (data.status == "ok") {

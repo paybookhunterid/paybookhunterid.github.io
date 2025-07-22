@@ -1,27 +1,8 @@
 $(document).ready(function () {
-  console.log("Jquery Ready!");
   const API = {
     referral:
       "https://script.google.com/macros/s/AKfycbynolM1a-p9gRnYd1nxNfRIuBWkt6uGJWIaRsj01p9iaYM7xCUkAlKqIemsT8OA2KLJ/exec",
   };
-
-  function triggerPayment(type) {
-    grecaptcha.ready(function () {
-      grecaptcha
-        .execute("6LdbZIYrAAAAABoezfmGM_GtrP5Rh-OFCeBXxPea", {
-          action: "bayarsekarang",
-        })
-        .then(function (token) {
-          if (type == "getBasePrice") {
-            getBasePrice(token);
-          } else if (type == "check") {
-            checkCodeReferral(token);
-          } else if (type == "pay") {
-            submitFormBuy(token);
-          }
-        });
-    });
-  }
 
   function formatRupiah(value) {
     return "Rp" + value.toLocaleString("id-ID");
@@ -176,6 +157,7 @@ $(document).ready(function () {
           }
           $("#price-item-ebook").text(formatRupiah(parseInt(data.basePrice)));
           $("#price-item-ebook").attr("price-value", parseInt(data.basePrice));
+          $("#price-item-ebook").attr("your-token", data.token);
           $("#price-services").text(formatRupiah(parseInt(2000)));
           $("#total-price-item").text(
             formatRupiah(parseInt(data.basePrice) + 2000)
@@ -194,17 +176,15 @@ $(document).ready(function () {
       $("#useReferralCode").html(`
           <i class="fa fa-spinner fa-spin"></i>
       `);
-      triggerPayment("check");
+      checkCodeReferral();
     }
   });
 
-  function checkCodeReferral(captchaToken) {
+  function checkCodeReferral() {
     $(".useReferralCode").removeAttr("id");
     let referralCode = $("#referralCodeInput").val();
     $.getJSON(
-      `${API.referral}?type=check&code=${encodeURIComponent(
-        referralCode
-      )}&captcha=${captchaToken}`
+      `${API.referral}?type=check&code=${encodeURIComponent(referralCode)}`
     )
       .done(function (data) {
         $(".useReferralCode").attr("id", "useReferralCode");
@@ -251,19 +231,20 @@ $(document).ready(function () {
     const name = $("#inputName").val().trim();
     const email = $("#inputEmail").val().trim();
     if (name != "" && email != "") {
-      triggerPayment("pay");
+      submitFormBuy();
     }
   });
 
-  function submitFormBuy(captchaToken) {
+  function submitFormBuy() {
     const name = $("#inputName").val().trim();
     const email = $("#inputEmail").val().trim();
     const code = $("#referralCodeInput").val().trim();
+    let token = $("#price-item-ebook").attr("your-token");
     const query = `?type=pay&name=${encodeURIComponent(
       name
     )}&email=${encodeURIComponent(email)}&code=${encodeURIComponent(
       code
-    )}&captcha=${captchaToken}${devMode}`;
+    )}&token=${token}${devMode}`;
     let errors = [];
     if (!name || !/^[A-Za-z\s]+$/.test(name) || name.length > 30) {
       errors.push(
